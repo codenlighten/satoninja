@@ -16,8 +16,9 @@
 			let SPEED = 480;
 			let WIDTH = visualViewport.width;
 			let HEIGHT = visualViewport.height;
-			// var man = ["1", "2"][Math.floor(Math.random() * 2)]; // initialize context
+			var man = ["1", "2"][Math.floor(Math.random() * 2)]; // initialize context
 			let background = "bg4";
+			let enemyChoice = ["enemy", "enemy2"][Math.floor(Math.random() * 2)];
 			//let scaleCheck = WIDTH < HEIGHT ? WIDTH / 768 : WIDTH / 1920; determine mobile or not
 			let scaleCheck = WIDTH / HEIGHT;
 			let billboardPosition =
@@ -34,13 +35,17 @@
 			loadSprite("bg4a", `./assets/gameover.png`);
 			loadSprite("title", "./assets/title.png");
 
-			loadSprite("man", "./assets/player.png");
-			loadSprite("startButton", "./assets/1.png");
+			loadSprite("1", "./assets/player.png");
+			loadSprite("2", "./assets/cheese.png");
+
+			loadSprite("startButton", "./assets/cheese.png");
 			loadSprite("enemy", "./assets/enemy.png");
+			loadSprite("enemy2", "./assets/enemy2.png");
 
 			loadSound("bomb", "./assets/explosion.m4a");
 
 			loadSound("logosound", "./assets/satojump.mp3");
+
 			const music = play("logosound", {
 				volume: 0.8,
 				disableWebAudio: true,
@@ -78,7 +83,7 @@
 
 				const player = add([
 					// list of components
-					sprite("man"),
+					sprite(man),
 					pos(10, 200),
 					scale(0.7),
 					area(),
@@ -146,7 +151,7 @@
 
 				const player = add([
 					// list of components
-					sprite("man"),
+					sprite(man),
 					pos(10, 200),
 					scale(0.5),
 					area(),
@@ -243,7 +248,7 @@
 					setTimeout(
 						() => {
 							add([
-								sprite(`enemy`),
+								sprite(enemyChoice),
 								area(),
 								outline(4),
 								pos(width(), height() - FLOOR_HEIGHT),
@@ -345,6 +350,7 @@
 
 				// increment score every frame
 				onUpdate(() => {
+					enemyChoice = ["enemy", "enemy2"][Math.floor(Math.random() * 2)];
 					timer++;
 					if (player.isGrounded()) {
 						player.doubleJump(DOUBLE_JUMP);
@@ -373,7 +379,7 @@
 					color("black"),
 				]);
 				add([
-					sprite(`man`),
+					sprite(man),
 					pos(width() / 2, height() / 2 - 80),
 					scale(0.75),
 					origin("center"),
