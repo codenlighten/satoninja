@@ -133,7 +133,13 @@
 				gravity(2400);
 
 				add([sprite(background), scale(1.2)]); // add a game object to screen
-
+				let soundTest = false;
+				onTouchStart(() => {
+					if (soundTest == false) {
+						music.play();
+						soundTest = true;
+					}
+				});
 				const player = add([
 					// list of components
 					sprite(man),
