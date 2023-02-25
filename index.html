@@ -52,6 +52,35 @@
 				WIDTH < HEIGHT ? visualViewport.height * 0.3 : 135;
 			let scalar = WIDTH < HEIGHT ? 0.25 : 0.5;
 			let scalar2 = WIDTH < HEIGHT ? 0.4 : 0.75;
+			//set eventlistener on body for touchstart and touchend to get x coordinates
+			let touchStart = 0;
+			let touchEnd = 0;
+			let touchDirection = 0;
+			let touchDirection2 = 0;
+			let touchDirection3 = 0;
+			let touchDirection4 = 0;
+			let touchDirection5 = 0;
+			let touchDirection6 = 0;
+			let touchDirection7 = 0;
+			let touchDirection8 = 0;
+			let touchDirection9 = 0;
+
+			document.body.addEventListener("touchstart", function (event) {
+				touchStart = event.touches[0].clientX;
+			});
+			document.body.addEventListener("touchend", function (event) {
+				touchEnd = event.changedTouches[0].clientX;
+				touchDirection = touchEnd - touchStart;
+				touchDirection2 = touchDirection * 0.5;
+				touchDirection3 = touchDirection * 0.75;
+				touchDirection4 = touchDirection * 0.25;
+				touchDirection5 = touchDirection * 0.125;
+				touchDirection6 = touchDirection * 0.0625;
+				touchDirection7 = touchDirection * 0.03125;
+				touchDirection8 = touchDirection * 0.015625;
+				touchDirection9 = touchDirection * 0.0078125;
+			});
+
 			kaboom({
 				width: WIDTH,
 				height: HEIGHT,
@@ -224,23 +253,15 @@
 				let timer = 0;
 				let lives = 3;
 				let points = 0;
-				onTouchStart((pos) => {
-					//if touch start position is less than half the screen, move left
-					if (pos < WIDTH / 2) {
+				//write code to listen for touch events and move player left or right when the left or right buttons are pressed
+				on("touchstart", (e) => {
+					if (e.touches[0].clientX < width() / 2) {
 						player.move(-SPEED, 0);
-						//if touch start position is greater than half the screen, move right
-					} else if (pos > WIDTH / 2) {
+					} else {
 						player.move(SPEED, 0);
 					}
+				});
 
-					// alert(e.pos, "touch", WIDTH / 2);
-				});
-				onTouchEnd((pos) => {
-					//if touch end than stop moving
-					player.move(0, 0);
-					console.log(pos);
-				});
-				// onTouchStart("upButton", () => jump());
 				const enemyDirection = timer % 10 === 0 ? LEFT : RIGHT;
 				console.log(enemyDirection);
 				function spawnBlock() {
@@ -349,34 +370,19 @@
 
 				// increment score every frame
 				onUpdate(() => {
-					// 	coordinates = navigator.geolocation.getCurrentPosition(
-					// 		success,
-					// 		error,
-					// 		options
-					// 	);
-					// 	console.log(direction);
-					// 	if (direction < direction2) {
-					// 		player.move(RIGHT, SPEED);
-					// 	}
-
-					// 	direction2 = direction;
-					onTouchStart((pos) => {
-						alert(pos);
-						//if touch start position is less than half the screen, move left
-						if (pos < WIDTH / 2) {
+					//write code to listen for touch events and move player left or right when the left or right buttons are pressed
+					on("touchstart", (e) => {
+						if (e.touches[0].clientX < width() / 2) {
 							player.move(-SPEED, 0);
-							//if touch start position is greater than half the screen, move right
-						} else if (pos > WIDTH / 2) {
+						} else {
 							player.move(SPEED, 0);
 						}
-
-						// alert(e.pos, "touch", WIDTH / 2);
 					});
-					onTouchEnd((pos) => {
-						//if touch end than stop moving
+					//listen for touch end to stop player movement
+					on("touchend", (e) => {
 						player.move(0, 0);
-						console.log(pos);
 					});
+
 					enemyChoice = ["enemy", "enemy2"][Math.floor(Math.random() * 2)];
 					timer++;
 					if (player.isGrounded()) {
