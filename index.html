@@ -198,11 +198,10 @@
 				}
 
 				// jump when user press space
-				onKeyDown("j", doubleJump);
-				// touchMove(doubleJump);
-				// onTouchStart("upButton", jump);
-				onKeyPress("space", jump);
-				onKeyDown("up", jump);
+				// onKeyDown("j", doubleJump);
+
+				// onKeyPress("space", jump);
+				// onKeyDown("up", jump);
 				// mouseClick(jump);
 				onKeyDown("left", () => {
 					player.move(-SPEED, 0);
@@ -347,6 +346,12 @@
 				// increment score every frame
 				onUpdate(() => {
 					timer++;
+					if (player.isGrounded()) {
+						player.doubleJump(DOUBLE_JUMP);
+						// points -= 25;
+						// pointsLabel.text = `Points: ${points}`;
+						// play("superjump");
+					}
 					if (timer % 50 === 0) {
 						SPEED += 0.1;
 						points += 10;
