@@ -269,18 +269,17 @@
 
 				// increment score every frame
 				onUpdate(() => {
-          			let soundTest = false;
-				onTouchStart(() => {
-					if (soundTest == false) {
-						music.play();
-						soundTest = true;
-					}
-				});
+					let soundTest = false;
+
 					//write code to listen for touch events and move player left or right when the left or right buttons are pressed
 					let touchStart = 0;
 					let touchEnd = 0;
 
 					document.body.addEventListener("touchstart", function (event) {
+						if (soundTest == false) {
+							music.play();
+							soundTest = true;
+						}
 						touchStart = event.touches[0].clientX;
 						if (touchStart < width() / 2) {
 							player.move(-SPEED / 2, 0);
