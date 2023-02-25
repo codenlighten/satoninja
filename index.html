@@ -4,18 +4,18 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<!-- <link rel="icon" type="image/png" href="./assets/1.png" /> -->
+		<link rel="icon" type="image/png" href="./assets/1.png" />
+
 		<script type="module">
 			// import kaboom library
 			import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
-
-			// initialize kaboom context
 			const FLOOR_HEIGHT = 48;
 			const JUMP_FORCE = 1250;
 			const DOUBLE_JUMP = 1500;
 			let SPEED = 480;
 			let WIDTH = visualViewport.width;
 			let HEIGHT = visualViewport.height;
+
 			var man = ["1", "2"][Math.floor(Math.random() * 2)]; // initialize context
 			let background = "bg4";
 			let enemyChoice = ["enemy", "enemy2"][Math.floor(Math.random() * 2)];
@@ -83,7 +83,7 @@
 
 				const player = add([
 					// list of components
-					sprite(man),
+					sprite("1"),
 					pos(10, 200),
 					scale(0.7),
 					area(),
@@ -101,53 +101,6 @@
 				gravity(2400);
 
 				add([sprite(background), scale(1.2)]); // add a game object to screen
-				// add([
-				// 	// list of components
-				// 	sprite(`billboard`),
-				// 	pos(10, billboardPosition),
-				// 	scale(scalar),
-				// 	area(),
-				// ]);
-
-				// setInterval(() => {
-				// 	function spawnAdvert() {
-				// 		const NFT = add([
-				// 			sprite(
-				// 				`${["1", "2", "3", "4"][Math.floor(Math.random() * 4)]}advert`
-				// 			),
-				// 			z(0),
-				// 			scale(0.15),
-				// 			area(),
-				// 			outline(4),
-				// 			pos(width(), height() - FLOOR_HEIGHT),
-				// 			origin("botleft"),
-				// 			move(LEFT, SPEED),
-				// 			"mushroomAd",
-				// 		]);
-				// 	}
-				// 	spawnAdvert();
-				// }, 5500);
-				// function spawnBlimp() {
-				// 	const BLIMP = add([
-				// 		sprite("blimp"),
-				// 		z(0),
-				// 		scale(0.75),
-				// 		area(),
-				// 		outline(4),
-				// 		pos(0, visualViewport.height * 0.1),
-				// 		origin("topright"),
-				// 		move(RIGHT, SPEED),
-				// 		"blimp",
-				// 	]);
-
-				// wait a random amount of time to spawn next tree
-				// 	wait(rand(10, 20), () => {
-				// 		spawnBlimp();
-				// 	});
-
-				// 	// add tree obj
-				// }
-				// spawnBlimp();
 
 				const player = add([
 					// list of components
@@ -411,6 +364,8 @@
 			});
 
 			go("start");
+
+			// initialize kaboom context
 		</script>
 
 		<style>
