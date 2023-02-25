@@ -133,13 +133,7 @@
 				gravity(2400);
 
 				add([sprite(background), scale(1.2)]); // add a game object to screen
-				let soundTest = false;
-				onTouchStart(() => {
-					if (soundTest == false) {
-						music.play();
-						soundTest = true;
-					}
-				});
+
 				const player = add([
 					// list of components
 					sprite(man),
@@ -275,6 +269,13 @@
 
 				// increment score every frame
 				onUpdate(() => {
+          			let soundTest = false;
+				onTouchStart(() => {
+					if (soundTest == false) {
+						music.play();
+						soundTest = true;
+					}
+				});
 					//write code to listen for touch events and move player left or right when the left or right buttons are pressed
 					let touchStart = 0;
 					let touchEnd = 0;
