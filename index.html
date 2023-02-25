@@ -225,7 +225,7 @@
 				let lives = 3;
 				let points = 0;
 				onTouchStart((pos) => {
-					console.log(pos);
+					alert(pos);
 					//if touch start position is less than half the screen, move left
 					if (pos < WIDTH / 2) {
 						player.move(-SPEED, 0);
