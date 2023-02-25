@@ -201,9 +201,9 @@
 				//write code to listen for touch events and move player left or right when the left or right buttons are pressed
 				on("touchstart", (e) => {
 					if (e.touches[0].clientX < width() / 2) {
-						player.move(-SPEED, 0);
+						player.move(-SPEED / 2, 0);
 					} else {
-						player.move(SPEED, 0);
+						player.move(SPEED / 2, 0);
 					}
 				});
 
