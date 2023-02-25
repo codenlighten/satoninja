@@ -55,30 +55,12 @@
 			//set eventlistener on body for touchstart and touchend to get x coordinates
 			let touchStart = 0;
 			let touchEnd = 0;
-			let touchDirection = 0;
-			let touchDirection2 = 0;
-			let touchDirection3 = 0;
-			let touchDirection4 = 0;
-			let touchDirection5 = 0;
-			let touchDirection6 = 0;
-			let touchDirection7 = 0;
-			let touchDirection8 = 0;
-			let touchDirection9 = 0;
 
 			document.body.addEventListener("touchstart", function (event) {
 				touchStart = event.touches[0].clientX;
 			});
 			document.body.addEventListener("touchend", function (event) {
 				touchEnd = event.changedTouches[0].clientX;
-				touchDirection = touchEnd - touchStart;
-				touchDirection2 = touchDirection * 0.5;
-				touchDirection3 = touchDirection * 0.75;
-				touchDirection4 = touchDirection * 0.25;
-				touchDirection5 = touchDirection * 0.125;
-				touchDirection6 = touchDirection * 0.0625;
-				touchDirection7 = touchDirection * 0.03125;
-				touchDirection8 = touchDirection * 0.015625;
-				touchDirection9 = touchDirection * 0.0078125;
 			});
 
 			kaboom({
@@ -214,42 +196,13 @@
 					}
 				}
 
-				// jump when user press space
-				// onKeyDown("j", doubleJump);
-
-				// onKeyPress("space", jump);
-				// onKeyDown("up", jump);
-				// mouseClick(jump);
 				onKeyDown("left", () => {
 					player.move(-SPEED, 0);
 				});
 				onKeyDown("right", () => {
 					player.move(SPEED, 0);
 				});
-				// const upButton = add([
-				// 	// list of components
-				// 	sprite(`upButton`),
-				// 	pos(5, height() - FLOOR_HEIGHT),
-				// 	scale(0.5),
-				// 	area(),
-				// 	z(1),
-				// ]);
-				// const leftButton = add([
-				// 	// list of components
-				// 	sprite(`leftButton`),
-				// 	pos(width() / 1.5, height() - FLOOR_HEIGHT),
-				// 	scale(0.5),
-				// 	area(),
-				// 	z(1),
-				// ]);
-				// const rightButton = add([
-				// 	// list of components
-				// 	sprite(`rightButton`),
-				// 	pos(width() / 1.25, height() - FLOOR_HEIGHT),
-				// 	scale(0.5),
-				// 	area(),
-				// 	z(1),
-				// ]);
+
 				let timer = 0;
 				let lives = 3;
 				let points = 0;
@@ -298,53 +251,8 @@
 					pos(24, 140),
 					scale(1),
 				]);
-				// setTimeout(() => {
-				// 	function spawnHemp() {
-				// 		const treat = add([
-				// 			// rect(48, rand(32, 40)),
-				// 			sprite("hemp"),
-				// 			scale(0.2),
-				// 			area(),
-				// 			outline(4),
-				// 			pos(width(), height() - FLOOR_HEIGHT),
-				// 			origin("botleft"),
-				// 			color(255, 255, 0),
-				// 			move(LEFT, SPEED),
-				// 			"hemp",
-				// 		]);
 
-				// 		// wait a random amount of time to spawn next tree
-				// 		wait(rand(3, 5), () => {
-				// 			spawnHemp();
-				// 		});
-				// 		// add tree obj
-				// 	}
-				// 	spawnHemp();
-				// }, 3000);
-				// start spawning trees
-
-				// function hempCollect() {
-				// 	const esgpow = add([
-				// 		// list of components
-				// 		sprite("esgpow"),
-				// 		pos(player.pos.x, player.pos.y),
-				// 		scale(0.3),
-				// 		z(1),
-				// 	]);
-				// 	setTimeout(() => {
-				// 		destroy(esgpow);
-				// 	}, 1000);
-				// }
-				// player.collides("hemp", (hemp) => {
-				// 	// go to "lose" scene and pass the score
-				// 	points += 100;
-				// 	pointsLabel.text = `CO2 Blast: ${points}`;
-				// 	destroy(hemp);
-				// 	play(`${["1", "2", "3", "4"][Math.floor(Math.random() * 4)]}voice`);
-				// 	hempCollect();
-				// });
-
-				// lose if player collides with any game obj with tag "tree"
+				// lose if player collides with any game obj with tag "block"
 				player.onCollide("block", () => {
 					// go to "lose" scene and pass the score
 
@@ -371,18 +279,12 @@
 				// increment score every frame
 				onUpdate(() => {
 					//write code to listen for touch events and move player left or right when the left or right buttons are pressed
-					on("touchstart", (e) => {
-						if (e.touches[0].clientX < width() / 2) {
-							player.move(-SPEED, 0);
-						} else {
-							player.move(SPEED, 0);
-						}
-					});
-					//listen for touch end to stop player movement
-					on("touchend", (e) => {
-						player.move(0, 0);
-					});
-
+				touchStart.addEventListener("change", (e) => {
+			       if (e.touches[0].clientX < width() / 2) {
+			         player.move(-SPEED, 0);
+			       } else {
+			         player.move(SPEED, 0);
+			       }
 					enemyChoice = ["enemy", "enemy2"][Math.floor(Math.random() * 2)];
 					timer++;
 					if (player.isGrounded()) {
