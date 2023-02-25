@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- <link rel="icon" type="image/png" href="./assets/1.png" /> -->
+		<script type="module">
+			// import kaboom library
+			import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
+
+			// initialize kaboom context
+			const FLOOR_HEIGHT = 48;
+			const JUMP_FORCE = 1250;
+			const DOUBLE_JUMP = 1500;
+			let SPEED = 480;
+			let WIDTH = visualViewport.width;
+			let HEIGHT = visualViewport.height;
+			// var man = ["1", "2"][Math.floor(Math.random() * 2)]; // initialize context
+			let background = "bg4";
+			//let scaleCheck = WIDTH < HEIGHT ? WIDTH / 768 : WIDTH / 1920; determine mobile or not
+			let scaleCheck = WIDTH / HEIGHT;
+			let billboardPosition =
+				WIDTH < HEIGHT ? visualViewport.height * 0.3 : 135;
+			let scalar = WIDTH < HEIGHT ? 0.25 : 0.5;
+			let scalar2 = WIDTH < HEIGHT ? 0.4 : 0.75;
+			kaboom({
+				width: WIDTH,
+				height: HEIGHT,
+			});
+
+			// load assets
+			loadSprite("bg4", `./assets/bg1.png`);
+			loadSprite("bg4a", `./assets/gameover.png`);
+
+			loadSprite("man", "./assets/player.png");
+			loadSprite("startButton", "./assets/1.png");
+			loadSprite("enemy", "./assets/enemy.png");
+
+			loadSound("bomb", "./assets/explosion.m4a");
+
+			loadSound("logosound", "./assets/satojump.mp3");
+			const music = play("logosound", {
+				volume: 0.8,
+				disableWebAudio: true,
+				loop: true,
+			});
+			scene("start", () => {
+				music.pause();
+
+				add([sprite(background), scale(1.2)]);
+				const floor = add([
+					rect(width(), FLOOR_HEIGHT),
+					outline(4),
+					pos(0, height()),
+					origin("botleft"),
+					area(),
+					solid(),
+					color("black"),
+				]);
+				const start = add([
+					// list of components
+					sprite(`startButton`),
+					pos(WIDTH / 2, HEIGHT / 2),
+					scale(scalar2),
+					area(),
+					body(),
+					gravity(50),
+				]);
+				// const title = add([
+				// 	// list of components
+				// 	sprite(`title`),
+				// 	pos(visualViewport.width / 4, 50),
+				// 	scale(scalar2),
+				// 	area(),
+				// ]);
+
+				const player = add([
+					// list of components
+					sprite("man"),
+					pos(10, 200),
+					scale(0.7),
+					area(),
+					body(),
+					z(1),
+				]);
+
+				onMousePress(() => {
+					go("game");
+				});
+			});
+			scene("game", () => {
+				// define gravity
+				music.play();
+				gravity(2400);
+
+				add([sprite(background), scale(1.2)]); // add a game object to screen
+				// add([
+				// 	// list of components
+				// 	sprite(`billboard`),
+				// 	pos(10, billboardPosition),
+				// 	scale(scalar),
+				// 	area(),
+				// ]);
+
+				// setInterval(() => {
+				// 	function spawnAdvert() {
+				// 		const NFT = add([
+				// 			sprite(
+				// 				`${["1", "2", "3", "4"][Math.floor(Math.random() * 4)]}advert`
+				// 			),
+				// 			z(0),
+				// 			scale(0.15),
+				// 			area(),
+				// 			outline(4),
+				// 			pos(width(), height() - FLOOR_HEIGHT),
+				// 			origin("botleft"),
+				// 			move(LEFT, SPEED),
+				// 			"mushroomAd",
+				// 		]);
+				// 	}
+				// 	spawnAdvert();
+				// }, 5500);
+				// function spawnBlimp() {
+				// 	const BLIMP = add([
+				// 		sprite("blimp"),
+				// 		z(0),
+				// 		scale(0.75),
+				// 		area(),
+				// 		outline(4),
+				// 		pos(0, visualViewport.height * 0.1),
+				// 		origin("topright"),
+				// 		move(RIGHT, SPEED),
+				// 		"blimp",
+				// 	]);
+
+				// wait a random amount of time to spawn next tree
+				// 	wait(rand(10, 20), () => {
+				// 		spawnBlimp();
+				// 	});
+
+				// 	// add tree obj
+				// }
+				// spawnBlimp();
+
+				const player = add([
+					// list of components
+					sprite("man"),
+					pos(10, 200),
+					scale(0.5),
+					area(),
+					body(),
+					z(1),
+				]);
+
+				// floor
+				add([
+					rect(width(), FLOOR_HEIGHT),
+					outline(4),
+					pos(0, height()),
+					origin("botleft"),
+					area(),
+					solid(),
+					color("black"),
+				]);
+				add([
+					rect(width() * 0.01, height()),
+					outline(4),
+					pos(0, height()),
+					origin("botleft"),
+					area(),
+					solid(),
+					color(0, 0, 0),
+				]);
+
+				add([
+					rect(width() * 0.01, height()),
+					outline(4),
+					pos(width(), height()),
+					origin("botright"),
+					area(),
+					solid(),
+					color(0, 0, 0),
+				]);
+				function jump() {
+					if (player.isGrounded()) {
+						player.jump(JUMP_FORCE);
+					}
+				}
+				function doubleJump() {
+					if (player.isGrounded()) {
+						player.doubleJump(DOUBLE_JUMP);
+						points -= 25;
+						pointsLabel.text = `Points: ${points}`;
+						// play("superjump");
+					}
+				}
+
+				// jump when user press space
+				onKeyDown("j", doubleJump);
+				// touchMove(doubleJump);
+				// onTouchStart("upButton", jump);
+				onKeyPress("space", jump);
+				onKeyDown("up", jump);
+				// mouseClick(jump);
+				onKeyDown("left", () => {
+					player.move(-SPEED, 0);
+				});
+				onKeyDown("right", () => {
+					player.move(SPEED, 0);
+				});
+				// const upButton = add([
+				// 	// list of components
+				// 	sprite(`upButton`),
+				// 	pos(5, height() - FLOOR_HEIGHT),
+				// 	scale(0.5),
+				// 	area(),
+				// 	z(1),
+				// ]);
+				// const leftButton = add([
+				// 	// list of components
+				// 	sprite(`leftButton`),
+				// 	pos(width() / 1.5, height() - FLOOR_HEIGHT),
+				// 	scale(0.5),
+				// 	area(),
+				// 	z(1),
+				// ]);
+				// const rightButton = add([
+				// 	// list of components
+				// 	sprite(`rightButton`),
+				// 	pos(width() / 1.25, height() - FLOOR_HEIGHT),
+				// 	scale(0.5),
+				// 	area(),
+				// 	z(1),
+				// ]);
+				let timer = 0;
+				let lives = 3;
+				let points = 0;
+				onTouchStart("upButton", () => jump());
+				const enemyDirection = timer % 10 === 0 ? LEFT : RIGHT;
+				console.log(enemyDirection);
+				function spawnBlock() {
+					setTimeout(
+						() => {
+							add([
+								sprite(`enemy`),
+								area(),
+								outline(4),
+								pos(width(), height() - FLOOR_HEIGHT),
+								origin("botleft"),
+								scale(0.5),
+								move(enemyDirection, SPEED),
+								"block",
+							]);
+							// wait a random amount of time to spawn next tree
+							wait(rand(1, 2), () => {
+								spawnBlock();
+							});
+						},
+						WIDTH < HEIGHT ? 3000 : 0
+					);
+				}
+				spawnBlock();
+
+				const pointsLabel = add([
+					text(`Points: ${points}`),
+					pos(24, 80),
+					scale(0.5),
+				]);
+
+				const livesLabel = add([
+					text(`Lives: ${lives}`),
+					pos(24, 140),
+					scale(1),
+				]);
+				// setTimeout(() => {
+				// 	function spawnHemp() {
+				// 		const treat = add([
+				// 			// rect(48, rand(32, 40)),
+				// 			sprite("hemp"),
+				// 			scale(0.2),
+				// 			area(),
+				// 			outline(4),
+				// 			pos(width(), height() - FLOOR_HEIGHT),
+				// 			origin("botleft"),
+				// 			color(255, 255, 0),
+				// 			move(LEFT, SPEED),
+				// 			"hemp",
+				// 		]);
+
+				// 		// wait a random amount of time to spawn next tree
+				// 		wait(rand(3, 5), () => {
+				// 			spawnHemp();
+				// 		});
+				// 		// add tree obj
+				// 	}
+				// 	spawnHemp();
+				// }, 3000);
+				// start spawning trees
+
+				// function hempCollect() {
+				// 	const esgpow = add([
+				// 		// list of components
+				// 		sprite("esgpow"),
+				// 		pos(player.pos.x, player.pos.y),
+				// 		scale(0.3),
+				// 		z(1),
+				// 	]);
+				// 	setTimeout(() => {
+				// 		destroy(esgpow);
+				// 	}, 1000);
+				// }
+				// player.collides("hemp", (hemp) => {
+				// 	// go to "lose" scene and pass the score
+				// 	points += 100;
+				// 	pointsLabel.text = `CO2 Blast: ${points}`;
+				// 	destroy(hemp);
+				// 	play(`${["1", "2", "3", "4"][Math.floor(Math.random() * 4)]}voice`);
+				// 	hempCollect();
+				// });
+
+				// lose if player collides with any game obj with tag "tree"
+				player.onCollide("block", () => {
+					// go to "lose" scene and pass the score
+
+					// music.pause();
+					shake(120);
+					play("bomb", { volume: 0.5 });
+					lives--;
+					livesLabel.text = `Lives: ${lives}`;
+					if (lives === 0) {
+						setTimeout(() => {
+							go("lose", timer, points);
+						}, 500);
+					}
+				});
+
+				// keep track of score
+
+				const timerLabel = add([
+					text(`Speed: ${timer}`),
+					pos(24, 24),
+					scale(0.5),
+				]);
+
+				// increment score every frame
+				onUpdate(() => {
+					timer++;
+					if (timer % 50 === 0) {
+						SPEED += 0.1;
+						points += 10;
+					}
+					pointsLabel.text = `Points: ${points}`;
+					timerLabel.text = `Timer: ${timer}`;
+				});
+			});
+
+			scene("lose", (timer, points) => {
+				add([sprite(background), scale(1.2)]);
+				add([
+					rect(width(), FLOOR_HEIGHT),
+					outline(4),
+					pos(0, height()),
+					origin("botleft"),
+					area(),
+					solid(),
+					color("black"),
+				]);
+				add([
+					sprite(`man`),
+					pos(width() / 2, height() / 2 - 80),
+					scale(0.75),
+					origin("center"),
+				]);
+
+				// display score
+				add([
+					text(`Survived: ${timer}`),
+					pos(width() / 2, height() / 2 + 80),
+					scale(0.5),
+					origin("center"),
+				]);
+				add([
+					text(`Points: ${points}`),
+					pos(width() / 2, height() / 2 + 200),
+					scale(0.5),
+					origin("center"),
+				]);
+				setTimeout(() => {
+					location.reload();
+				}, 4000);
+				// go back to game with space is pressed
+				// keyPress("left", () => location.reload());
+				// keyPress("right", () => location.reload());
+				// keyPress("up", () => location.reload());
+
+				// keyPress("space", () => location.reload());
+				onMousePress(() => location.reload());
+			});
+
+			go("start");
+		</script>
+
+		<style>
+			body {
+				/* background-image: url(./assets/bg-space2.gif); */
+				background-size: cover;
+				text-align: center;
+				margin: auto;
+				color: green;
+			}
+		</style>
+		<title>SatoNinja</title>
+	</head>
+	<body></body>
+</html>
