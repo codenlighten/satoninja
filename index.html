@@ -225,7 +225,7 @@
 				let lives = 3;
 				let points = 0;
 				onTouchStart((pos) => {
-					alert(pos);
+					// alert(pos);
 					//if touch start position is less than half the screen, move left
 					if (pos < WIDTH / 2) {
 						player.move(-SPEED, 0);
@@ -361,11 +361,22 @@
 					// 	}
 
 					// 	direction2 = direction;
-					onTouchStart((e) => {
-						console.log(e.pos);
+					onTouchStart((pos) => {
+						// alert(pos);
+						//if touch start position is less than half the screen, move left
+						if (pos < WIDTH / 2) {
+							player.move(-SPEED, 0);
+							//if touch start position is greater than half the screen, move right
+						} else if (pos > WIDTH / 2) {
+							player.move(SPEED, 0);
+						}
+
+						// alert(e.pos, "touch", WIDTH / 2);
 					});
-					onTouchEnd((e) => {
-						console.log(e.pos);
+					onTouchEnd((pos) => {
+						//if touch end than stop moving
+						player.move(0, 0);
+						console.log(pos);
 					});
 					enemyChoice = ["enemy", "enemy2"][Math.floor(Math.random() * 2)];
 					timer++;
