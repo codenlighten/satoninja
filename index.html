@@ -32,6 +32,7 @@
 			// load assets
 			loadSprite("bg4", `./assets/bg1.png`);
 			loadSprite("bg4a", `./assets/gameover.png`);
+			loadSprite("title", "./assets/title.png");
 
 			loadSprite("man", "./assets/player.png");
 			loadSprite("startButton", "./assets/1.png");
@@ -67,13 +68,13 @@
 					body(),
 					gravity(50),
 				]);
-				// const title = add([
-				// 	// list of components
-				// 	sprite(`title`),
-				// 	pos(visualViewport.width / 4, 50),
-				// 	scale(scalar2),
-				// 	area(),
-				// ]);
+				const title = add([
+					// list of components
+					sprite(`title`),
+					pos(visualViewport.width / 4, 50),
+					scale(scalar2),
+					area(),
+				]);
 
 				const player = add([
 					// list of components
