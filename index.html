@@ -276,9 +276,9 @@
 					document.body.addEventListener("touchstart", function (event) {
 						touchStart = event.touches[0].clientX;
 						if (touchStart < width() / 2) {
-							player.move(-SPEED, 0);
+							player.move(-SPEED / 2, 0);
 						} else {
-							player.move(SPEED, 0);
+							player.move(SPEED / 2, 0);
 						}
 					});
 					document.body.addEventListener("touchend", function (event) {
