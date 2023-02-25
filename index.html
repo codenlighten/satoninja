@@ -224,22 +224,22 @@
 				let timer = 0;
 				let lives = 3;
 				let points = 0;
-				onTouchStart((pos) => {
+				onTouchStart((e) => {
 					// alert(pos);
 					//if touch start position is less than half the screen, move left
-					if (pos < WIDTH / 2) {
+					if (e.pos < WIDTH / 2) {
 						player.move(-SPEED, 0);
 						//if touch start position is greater than half the screen, move right
-					} else if (pos > WIDTH / 2) {
+					} else if (e.pos > WIDTH / 2) {
 						player.move(SPEED, 0);
 					}
 
 					// alert(e.pos, "touch", WIDTH / 2);
 				});
-				onTouchEnd((pos) => {
+				onTouchEnd((e) => {
 					//if touch end than stop moving
 					player.move(0, 0);
-					console.log(pos);
+					console.log(e.pos);
 				});
 				// onTouchStart("upButton", () => jump());
 				const enemyDirection = timer % 10 === 0 ? LEFT : RIGHT;
@@ -361,13 +361,13 @@
 					// 	}
 
 					// 	direction2 = direction;
-					onTouchStart((pos) => {
+					onTouchStart((e) => {
 						// alert(pos);
 						//if touch start position is less than half the screen, move left
-						if (pos < WIDTH / 2) {
+						if (e.pos < WIDTH / 2) {
 							player.move(-SPEED, 0);
 							//if touch start position is greater than half the screen, move right
-						} else if (pos > WIDTH / 2) {
+						} else if (e.pos > WIDTH / 2) {
 							player.move(SPEED, 0);
 						}
 
