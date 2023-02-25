@@ -221,7 +221,24 @@
 				let timer = 0;
 				let lives = 3;
 				let points = 0;
-				onTouchStart("upButton", () => jump());
+				onTouchStart((e) => {
+					console.log(e.pos);
+					//if touch start position is less than half the screen, move left
+					if (e.pos.x < WIDTH / 2) {
+						player.move(-SPEED, 0);
+						//if touch start position is greater than half the screen, move right
+					} else if (e.pos.x > WIDTH / 2) {
+						player.move(SPEED, 0);
+					}
+
+					// alert(e.pos, "touch", WIDTH / 2);
+				});
+				onTouchEnd((e) => {
+					//if touch end than stop moving
+					player.move(0, 0);
+					console.log(e.pos);
+				});
+				// onTouchStart("upButton", () => jump());
 				const enemyDirection = timer % 10 === 0 ? LEFT : RIGHT;
 				console.log(enemyDirection);
 				function spawnBlock() {
@@ -341,6 +358,12 @@
 					// 	}
 
 					// 	direction2 = direction;
+					onTouchStart((e) => {
+						console.log(e.pos);
+					});
+					onTouchEnd((e) => {
+						console.log(e.pos);
+					});
 					enemyChoice = ["enemy", "enemy2"][Math.floor(Math.random() * 2)];
 					timer++;
 					if (player.isGrounded()) {
