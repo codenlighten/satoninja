@@ -36,6 +36,7 @@
 			// 	options
 			// );
 			// direction2 = direction;
+			let soundTest = false;
 			const FLOOR_HEIGHT = 48;
 			const JUMP_FORCE = 1250;
 			const DOUBLE_JUMP = 1500;
@@ -269,14 +270,12 @@
 
 				// increment score every frame
 				onUpdate(() => {
-					let soundTest = false;
-
 					//write code to listen for touch events and move player left or right when the left or right buttons are pressed
 					let touchStart = 0;
 					let touchEnd = 0;
 
 					document.body.addEventListener("touchstart", function (event) {
-						if (soundTest == false) {
+						if (soundTest === false) {
 							music.play();
 							soundTest = true;
 						}
