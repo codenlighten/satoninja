@@ -53,15 +53,6 @@
 			let scalar = WIDTH < HEIGHT ? 0.25 : 0.5;
 			let scalar2 = WIDTH < HEIGHT ? 0.4 : 0.75;
 			//set eventlistener on body for touchstart and touchend to get x coordinates
-			let touchStart = 0;
-			let touchEnd = 0;
-
-			document.body.addEventListener("touchstart", function (event) {
-				touchStart = event.touches[0].clientX;
-			});
-			document.body.addEventListener("touchend", function (event) {
-				touchEnd = event.changedTouches[0].clientX;
-			});
 
 			kaboom({
 				width: WIDTH,
@@ -279,12 +270,22 @@
 				// increment score every frame
 				onUpdate(() => {
 					//write code to listen for touch events and move player left or right when the left or right buttons are pressed
-				touchStart.addEventListener("change", (e) => {
-			       if (e.touches[0].clientX < WIDTH / 2) {
-			         player.move(-SPEED, 0);
-			       } else {
-			         player.move(SPEED, 0);
-			       }
+					let touchStart = 0;
+					let touchEnd = 0;
+
+					document.body.addEventListener("touchstart", function (event) {
+						touchStart = event.touches[0].clientX;
+						if (touchStart < width() / 2) {
+							player.move(-SPEED, 0);
+						} else {
+							player.move(SPEED, 0);
+						}
+					});
+					document.body.addEventListener("touchend", function (event) {
+						touchEnd = event.changedTouches[0].clientX;
+						//if touch end then player stops moving
+						player.move(0, 0);
+					});
 					enemyChoice = ["enemy", "enemy2"][Math.floor(Math.random() * 2)];
 					timer++;
 					if (player.isGrounded()) {
