@@ -10,31 +10,32 @@
 			// import kaboom library
 			import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			var direction = 0;
-			const options = {
-				enableHighAccuracy: true,
-				timeout: 5000,
-				maximumAge: 0,
-			};
+			var direction2 = 0;
+			// const options = {
+			// 	enableHighAccuracy: true,
+			// 	timeout: 5000,
+			// 	maximumAge: 0,
+			// };
 
-			function success(pos) {
-				const crd = pos.coords;
-				direction = crd.latitude;
-				console.log("Your current position is:");
-				console.log(`Latitude : ${crd.latitude}`);
-				console.log(`Longitude: ${crd.longitude}`);
-				console.log(`More or less ${crd.accuracy} meters.`);
-			}
+			// function success(pos) {
+			// 	const crd = pos.coords;
+			// 	direction = crd.latitude;
+			// 	console.log("Your current position is:");
+			// 	console.log(`Latitude : ${crd.latitude}`);
+			// 	console.log(`Longitude: ${crd.longitude}`);
+			// 	console.log(`More or less ${crd.accuracy} meters.`);
+			// }
 
-			function error(err) {
-				console.warn(`ERROR(${err.code}): ${err.message}`);
-			}
+			// function error(err) {
+			// 	console.warn(`ERROR(${err.code}): ${err.message}`);
+			// }
 
-			let coordinates = navigator.geolocation.getCurrentPosition(
-				success,
-				error,
-				options
-			);
-
+			// let coordinates = navigator.geolocation.getCurrentPosition(
+			// 	success,
+			// 	error,
+			// 	options
+			// );
+			// direction2 = direction;
 			const FLOOR_HEIGHT = 48;
 			const JUMP_FORCE = 1250;
 			const DOUBLE_JUMP = 1500;
@@ -42,7 +43,6 @@
 			let WIDTH = visualViewport.width;
 			let HEIGHT = visualViewport.height;
 			// var coordinates = Navigator.geolocation();
-			console.log(coordinates);
 			var man = ["1", "2"][Math.floor(Math.random() * 2)]; // initialize context
 			let background = "bg4";
 			let enemyChoice = ["enemy", "enemy2"][Math.floor(Math.random() * 2)];
@@ -330,18 +330,17 @@
 
 				// increment score every frame
 				onUpdate(() => {
-					coordinates = navigator.geolocation.getCurrentPosition(
-						success,
-						error,
-						options
-					);
-					console.log(direction);
-					if (crd.latitude < direction.latitude) {
-						player.move(LEFT, SPEED);
-					}
-					if (crd.latitude > direction.latitude) {
-						player.move(RIGHT, SPEED);
-					}
+					// 	coordinates = navigator.geolocation.getCurrentPosition(
+					// 		success,
+					// 		error,
+					// 		options
+					// 	);
+					// 	console.log(direction);
+					// 	if (direction < direction2) {
+					// 		player.move(RIGHT, SPEED);
+					// 	}
+
+					// 	direction2 = direction;
 					enemyChoice = ["enemy", "enemy2"][Math.floor(Math.random() * 2)];
 					timer++;
 					if (player.isGrounded()) {
