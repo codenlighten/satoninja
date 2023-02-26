@@ -193,7 +193,7 @@
 						// play("superjump");
 					}
 				}
-				function shrink() {
+				async function shrink() {
 					if (player.isGrounded()) {
 						player.scaleTo(0.25);
 						points -= 25;
@@ -201,8 +201,8 @@
 						myTimeout = setTimeout(() => {
 							player.scaleTo(0.5);
 						}, 3000);
+						await clearTimeout(myTimeout);
 					}
-					clearTimeout(myTimeout);
 				}
 
 				onKeyDown("left", () => {
