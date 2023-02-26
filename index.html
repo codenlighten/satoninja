@@ -11,31 +11,6 @@
 			import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 			var direction = 0;
 			var direction2 = 0;
-			// const options = {
-			// 	enableHighAccuracy: true,
-			// 	timeout: 5000,
-			// 	maximumAge: 0,
-			// };
-
-			// function success(pos) {
-			// 	const crd = pos.coords;
-			// 	direction = crd.latitude;
-			// 	console.log("Your current position is:");
-			// 	console.log(`Latitude : ${crd.latitude}`);
-			// 	console.log(`Longitude: ${crd.longitude}`);
-			// 	console.log(`More or less ${crd.accuracy} meters.`);
-			// }
-
-			// function error(err) {
-			// 	console.warn(`ERROR(${err.code}): ${err.message}`);
-			// }
-
-			// let coordinates = navigator.geolocation.getCurrentPosition(
-			// 	success,
-			// 	error,
-			// 	options
-			// );
-			// direction2 = direction;
 			if (localStorage.highScore == undefined) {
 				localStorage.highScore = 0;
 			}
