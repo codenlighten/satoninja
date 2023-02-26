@@ -36,6 +36,9 @@
 			// 	options
 			// );
 			// direction2 = direction;
+			if (localStorage.highScore == undefined) {
+				localStorage.highScore = 0;
+			}
 			let soundTest = false;
 			const FLOOR_HEIGHT = 48;
 			const JUMP_FORCE = 1250;
@@ -44,7 +47,8 @@
 			let WIDTH = visualViewport.width;
 			let HEIGHT = visualViewport.height;
 			// var coordinates = Navigator.geolocation();
-			var man = ["1", "2"][Math.floor(Math.random() * 2)]; // initialize context
+			// var man = ["1", "2"][Math.floor(Math.random() * 2)]; // initialize context
+			var man = localStorage.highScore > 100 ? "2" : "1";
 			let background = "bg4";
 			let enemyChoice = ["enemy", "enemy2"][Math.floor(Math.random() * 2)];
 			//let scaleCheck = WIDTH < HEIGHT ? WIDTH / 768 : WIDTH / 1920; determine mobile or not
@@ -65,8 +69,8 @@
 			loadSprite("bg4a", `./assets/gameover.png`);
 			loadSprite("title", "./assets/title.png");
 
-			loadSprite("1", "./assets/player.png");
-			loadSprite("2", "./assets/cheese.png");
+			loadSprite("2", "./assets/player.png");
+			loadSprite("1", "./assets/cheese.png");
 
 			loadSprite("startButton", "./assets/cheese.png");
 			loadSprite("enemy", "./assets/sword.png");
@@ -113,7 +117,7 @@
 
 				const player = add([
 					// list of components
-					sprite("1"),
+					sprite("2"),
 					pos(10, 200),
 					scale(0.7),
 					area(),
