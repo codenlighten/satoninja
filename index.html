@@ -198,7 +198,12 @@
 				onKeyDown("right", () => {
 					player.move(SPEED, 0);
 				});
-
+				onKeyDown("up", () => {
+					jump();
+				});
+				onKeyDown("j", () => {
+					doubleJump();
+				});
 				let timer = 0;
 				let lives = 3;
 				let points = 0;
