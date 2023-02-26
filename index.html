@@ -39,6 +39,7 @@
 			if (localStorage.highScore == undefined) {
 				localStorage.highScore = 0;
 			}
+			let myTimeout = null;
 			let soundTest = false;
 			const FLOOR_HEIGHT = 48;
 			const JUMP_FORCE = 1250;
@@ -197,10 +198,11 @@
 						player.scaleTo(0.25);
 						points -= 25;
 						pointsLabel.text = `Points: ${points}`;
-						setTimeout(() => {
+						myTimeout = setTimeout(() => {
 							player.scaleTo(0.5);
 						}, 3000);
 					}
+					clearTimeout(myTimeout);
 				}
 
 				onKeyDown("left", () => {
