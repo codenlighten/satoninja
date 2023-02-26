@@ -71,6 +71,7 @@
 
 			loadSprite("2", "./assets/player.png");
 			loadSprite("1", "./assets/cheese.png");
+			loadSprite("coin", "./assets/coin.png");
 
 			loadSprite("startButton", "./assets/cheese.png");
 			loadSprite("enemy", "./assets/sword.png");
@@ -254,6 +255,26 @@
 				}
 				spawnBlock();
 
+				function spawnCoin() {
+					setTimeout(() => {
+						add([
+							sprite("coin"),
+							area(),
+							outline(4),
+							pos(width(), height() - FLOOR_HEIGHT - 100),
+							origin("botleft"),
+							scale(0.5),
+							move(enemyDirection, SPEED * 2),
+							"coin",
+						]);
+						// wait a random amount of time to spawn next tree
+						// wait(rand(1, 2), () => {
+						// 	spawnCoin();
+						// });
+					}, 21000);
+				}
+				spawnCoin();
+
 				const pointsLabel = add([
 					text(`Points: ${points}`),
 					pos(24, 80),
@@ -286,7 +307,18 @@
 						}, 500);
 					}
 				});
+				player.onCollide("coin", (coin) => {
+					// go to "lose" scene and pass the score
 
+					// music.pause();
+
+					// play("bomb", { volume: 0.5 });
+					destroy(coin);
+
+					lives++;
+					livesLabel.text = `Lives: ${lives}`;
+					points += 100;
+				});
 				// keep track of score
 
 				const timerLabel = add([
