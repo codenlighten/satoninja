@@ -59,7 +59,7 @@
 			let scalar = WIDTH < HEIGHT ? 0.25 : 0.5;
 			let scalar2 = WIDTH < HEIGHT ? 0.4 : 0.75;
 			//set eventlistener on body for touchstart and touchend to get x coordinates
-
+			let randomHeight = Math.floor(Math.random() * 100) + 100;
 			kaboom({
 				width: WIDTH,
 				height: HEIGHT,
@@ -241,7 +241,7 @@
 								sprite(enemyChoice),
 								area(),
 								outline(4),
-								pos(width(), height() - FLOOR_HEIGHT - 100),
+								pos(width(), height() - FLOOR_HEIGHT - randomHeight),
 								origin("botleft"),
 								scale(0.5),
 								move(enemyDirection, SPEED),
@@ -331,6 +331,7 @@
 
 				// increment score every frame
 				onUpdate(() => {
+					randomHeight = Math.floor(Math.random() * 200) + 200;
 					//write code to listen for touch events and move player left or right when the left or right buttons are pressed
 					let touchStart = 0;
 					let touchEnd = 0;
