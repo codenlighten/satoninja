@@ -191,6 +191,16 @@
 						// play("superjump");
 					}
 				}
+				function shrink() {
+					if (player.isGrounded()) {
+						player.scaleTo(0.25);
+						points -= 25;
+						pointsLabel.text = `Points: ${points}`;
+						setTimeout(() => {
+							player.scaleTo(0.5);
+						}, 3000);
+					}
+				}
 
 				onKeyDown("left", () => {
 					player.move(-SPEED, 0);
@@ -203,6 +213,9 @@
 				});
 				onKeyDown("j", () => {
 					doubleJump();
+				});
+				onKeyDown("s", () => {
+					shrink();
 				});
 				let timer = 0;
 				let lives = 3;
