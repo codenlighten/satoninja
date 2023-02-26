@@ -265,7 +265,7 @@
 							outline(4),
 							pos(width(), height() - FLOOR_HEIGHT - 100),
 							origin("botleft"),
-							scale(0.5),
+							scale(0.25),
 							move(enemyDirection, SPEED * 2),
 							"coin",
 						]);
@@ -331,7 +331,7 @@
 
 				// increment score every frame
 				onUpdate(() => {
-					randomHeight = Math.floor(Math.random() * 200) + 200;
+					randomHeight = Math.floor(Math.random() * 100) + 100;
 					//write code to listen for touch events and move player left or right when the left or right buttons are pressed
 					let touchStart = 0;
 					let touchEnd = 0;
