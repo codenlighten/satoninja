@@ -302,12 +302,9 @@
 					});
 					enemyChoice = ["enemy", "enemy2"][Math.floor(Math.random() * 2)];
 					timer++;
-					if (player.isGrounded()) {
-						player.doubleJump(DOUBLE_JUMP);
-						// points -= 25;
-						// pointsLabel.text = `Points: ${points}`;
-						// play("superjump");
-					}
+					// if (player.isGrounded()) {
+					// 	player.doubleJump(DOUBLE_JUMP);
+					// }
 					if (timer % 50 === 0) {
 						SPEED += 0.1;
 						points += 10;
